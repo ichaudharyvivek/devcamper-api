@@ -4,6 +4,9 @@ const morgan = require("morgan");
 const connectDB = require("./config/db");
 const PORT = process.env.PORT || 3000;
 
+// Require middleware
+const errorHandler = require("./middleware/error");
+
 // Intializations
 const app = express();
 app.use(express.json());
@@ -20,6 +23,7 @@ const bootcamps = require("./routes/bootcamps");
 
 // Mount routers
 app.use("/api/v1/bootcamps", bootcamps);
+app.use(errorHandler); // Middleware are used after specifying route or else will not work
 
 // Listen to port
 const server = app.listen(PORT, (req, res) => {
@@ -30,5 +34,5 @@ const server = app.listen(PORT, (req, res) => {
 process.on("unhandledRejection", (err, promise) => {
   console.log(`Error: ${err.message}`);
   // Close server and exit process
-  server.close(() => process.exit(1)); // Since error so we do exit 1
+  server.close(() => process.exit(1)); // Since error so we exit with error code 1
 });
