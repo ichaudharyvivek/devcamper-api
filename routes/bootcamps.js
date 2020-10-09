@@ -6,9 +6,9 @@ const {
   createBootcamp,
   updateBootcamp,
   deleteBootcamp,
+  getBootcampsInRadius,
 } = require("../controllers/bootcamps");
 
-// Routers
 router.route("/").get(getBootcamps).post(createBootcamp);
 
 router
@@ -17,4 +17,9 @@ router
   .put(updateBootcamp)
   .delete(deleteBootcamp);
 
+// Geocode not working with geocoder.geocode(zipcode)
+// So changed from "/radius/:zipcode/:distance/:lng/:lat" to "/radius/:lng/:lat"
+router.route("/radius/:lng/:lat/:distance").get(getBootcampsInRadius);
+
+// Export Router
 module.exports = router;
