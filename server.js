@@ -1,12 +1,14 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
+const colors = require("colors");
 const connectDB = require("./config/db");
 const geocoder = require("./utils/geocoder");
 const PORT = process.env.PORT || 3000;
 
 // Require Route files
 const bootcamps = require("./routes/bootcamps");
+const courses = require("./routes/courses");
 
 // Require middleware
 const errorHandler = require("./middleware/error");
@@ -25,6 +27,7 @@ process.env.NODE_ENV === "development" ? app.use(morgan("dev")) : null; //Dev lo
 // API ROUTES - API V1 - /api/v1/
 // 1. Bootcamp Route
 app.use("/api/v1/bootcamps", bootcamps);
+app.use("/api/v1/courses", courses);
 app.use(errorHandler); // Middleware are used after specifying route or else will not work
 
 // LISTEN TO PORT

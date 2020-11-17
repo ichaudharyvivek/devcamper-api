@@ -6,7 +6,7 @@ const ErrorResponse = require("../utils/errorResponse");
  Explaination of given code snippet :-
  __________________________________________
 
- So in line '5' we recieve the default system generated error(if any). We are
+ So in line '22' we recieve the default system generated error(if any). We are
  concered with sending error to client which they can understand without any
  jargons. For this we imported all the error in variable "error" using ES6
  spread operator. Now we check for custom error for eg. if it is a duplicate
