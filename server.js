@@ -1,7 +1,9 @@
 const express = require("express");
+const path = require("path");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
+const fileupload = require("express-fileupload");
 const connectDB = require("./config/db");
 const geocoder = require("./utils/geocoder");
 const PORT = process.env.PORT || 3000;
@@ -23,6 +25,8 @@ connectDB();
 
 // Use Server Middlewares
 process.env.NODE_ENV === "development" ? app.use(morgan("dev")) : null; //Dev logging middleware
+app.use(fileupload());
+app.use(express.static(path.join(__dirname, "public")));
 
 // API ROUTES - API V1 - /api/v1/
 // 1. Bootcamp Route

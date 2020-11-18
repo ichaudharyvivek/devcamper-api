@@ -12,6 +12,7 @@ const {
   updateBootcamp,
   deleteBootcamp,
   getBootcampsInRadius,
+  bootcampPhotoUpload,
 } = require("../controllers/bootcamps");
 
 // Re-route into other resource routers - if encountered in URL
@@ -29,6 +30,9 @@ router
 // Geocode not working with geocoder.geocode(zipcode)
 // So changed from "/radius/:zipcode/:distance/:lng/:lat" to "/radius/:lng/:lat/:distance"
 router.route("/radius/:lng/:lat/:distance").get(getBootcampsInRadius);
+
+// Route for photo Uploading
+router.route("/:id/photo").put(bootcampPhotoUpload);
 
 // Export Router
 module.exports = router;
