@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 const fileupload = require("express-fileupload");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const geocoder = require("./utils/geocoder");
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 // Require Route files
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
+const auth = require("./routes/auth");
 
 // Require middleware
 const errorHandler = require("./middleware/error");
@@ -19,6 +21,7 @@ const errorHandler = require("./middleware/error");
 const app = express();
 app.use(express.json());
 dotenv.config({ path: "./config/config.env" });
+app.use(cookieParser());
 
 // Connect to database
 connectDB();
@@ -32,6 +35,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // 1. Bootcamp Route
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/courses", courses);
+app.use("/api/v1/auth", auth);
 app.use(errorHandler); // Middleware are used after specifying route or else will not work
 
 // LISTEN TO PORT
