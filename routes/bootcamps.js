@@ -10,6 +10,7 @@ const { protect, authorize } = require("../middleware/auth");
 
 // Include other resource routers - for required redirects
 const courseRouter = require("./courses");
+const reviewRouter = require("./reviews");
 
 // Main functionality.
 const {
@@ -24,6 +25,7 @@ const {
 
 // Re-route into other resource routers - if encountered in URL
 router.use("/:bootcampId/courses", courseRouter);
+router.use("/:bootcampId/reviews", reviewRouter);
 
 // Router Definations
 router

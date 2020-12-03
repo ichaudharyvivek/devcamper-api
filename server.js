@@ -13,6 +13,8 @@ const PORT = process.env.PORT || 3000;
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
 const auth = require("./routes/auth");
+const users = require("./routes/users");
+const reviews = require("./routes/reviews");
 
 // Require middleware
 const errorHandler = require("./middleware/error");
@@ -32,10 +34,11 @@ app.use(fileupload());
 app.use(express.static(path.join(__dirname, "public")));
 
 // API ROUTES - API V1 - /api/v1/
-// 1. Bootcamp Route
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/courses", courses);
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/users", users);
+app.use("/api/v1/reviews", reviews);
 app.use(errorHandler); // Middleware are used after specifying route or else will not work
 
 // LISTEN TO PORT
