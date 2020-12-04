@@ -2,7 +2,7 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
 
-// CRUD OPERATION ACCESSIBLE BY ADMIN
+// NOTE: CRUD OPERATION ACCESSIBLE BY ADMIN
 
 // @desc    Get all users
 // @route   GET /api/v1/auth/users

@@ -5,6 +5,12 @@ const morgan = require("morgan");
 const colors = require("colors");
 const fileupload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
+const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const rateLimit = require("express-rate-limit");
+const hpp = require("hpp");
+const cors = require("cors");
 const connectDB = require("./config/db");
 const geocoder = require("./utils/geocoder");
 const PORT = process.env.PORT || 3000;
@@ -28,10 +34,23 @@ app.use(cookieParser());
 // Connect to database
 connectDB();
 
-// Use Server Middlewares
+// Rate Limiiting by express-rate-limit package
+// 120 request per 10 mins
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 120, // 120 requests
+});
+
+// Use server middlewares
 process.env.NODE_ENV === "development" ? app.use(morgan("dev")) : null; //Dev logging middleware
-app.use(fileupload());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(fileupload()); // Builtin Package for fileupload
+app.use(express.static(path.join(__dirname, "public"))); // Include static folder
+app.use(mongoSanitize()); // Sanitize data for ambigious characters like $ or .
+app.use(helmet()); // Set security headers
+app.use(xss()); // Prevent XSS attacks
+app.use(limiter); //Rate limiter middleware
+app.use(hpp()); //Prevent http param pollution
+app.use(cors()); // Enable cors
 
 // API ROUTES - API V1 - /api/v1/
 app.use("/api/v1/bootcamps", bootcamps);
