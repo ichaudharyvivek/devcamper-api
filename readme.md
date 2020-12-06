@@ -22,10 +22,10 @@ npm run dev
 npm start
 ```
 
-## Aditional Information
+## Additional Information
 
 - Version: 1.0.0
-- Lisense: MIT
+- License: MIT
 
 ## Future To Do's:
 
