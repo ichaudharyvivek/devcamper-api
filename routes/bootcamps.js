@@ -39,10 +39,8 @@ router
   .put(protect, authorize("publisher", "admin"), updateBootcamp)
   .delete(protect, authorize("publisher", "admin"), deleteBootcamp);
 
-// Geocode not working with geocoder.geocode(zipcode)
-// So changed from "/radius/:zipcode/:distance/:lng/:lat" to "/radius/:lng/:lat/:distance"
 router
-  .route("/radius/:lng/:lat/:distance")
+  .route("/radius/:zipcode/:distance")
   .get(getBootcampsInRadius); // prettier-ignore
 
 // Route for photo Uploading

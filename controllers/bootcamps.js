@@ -112,17 +112,15 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Get bootcamps within radius
-// @route   GET /api/v1/bootcamps/radius/:zipcode/:distance/:lat/:lng
+// @route   GET /api/v1/bootcamps/radius/:zipcode/:distance
 // @access  Private
 exports.getBootcampsInRadius = asyncHandler(async (req, res, next) => {
-  // const { zipcode, distance } = req.params;
-  const { lng, lat, distance } = req.params;
+  const { zipcode, distance } = req.params;
 
-  // NOTE: Geocode not working with geocoder.geocode(zipcode)
   // Get lat/lng from geocoder
-  // const loc = await geocoder.geocode(zipcode);
-  // const lat = loc[0].latitude;
-  // const lng = loc[0].longitude;
+  const loc = await geocoder.geocode(zipcode);
+  const lat = loc[0].latitude;
+  const lng = loc[0].longitude;
 
   // Calc radius using radius
   // Divide dist by radius of Earth
