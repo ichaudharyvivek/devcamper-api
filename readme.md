@@ -29,4 +29,5 @@ npm start
 
 ## Future To Do's:
 
+- Extend support for API_KEY for restricted RBA use.
 - Extend support for OAuth2.0.
